@@ -118,8 +118,6 @@ callButton.onclick = async () => {
       }
     });
   });
-
-  hangupButton.disabled = false;
 };
 
 // 3. Answer the call with the unique ID
@@ -157,4 +155,10 @@ answerButton.onclick = async () => {
       }
     });
   });
+};
+
+//4 . Hangup when done
+
+hangupButton.onclick = async () => {
+  pc.close();
 };
