@@ -32,6 +32,9 @@ const servers = {
 const pc = new RTCPeerConnection(servers);
 let localStream = null;
 let remoteStream = null;
+let audiostream = null;
+let audioTrack = null;
+let localstreamclone = null;
 
 // HTML elements
 const webcamButton = document.getElementById('webcamButton');
@@ -60,7 +63,11 @@ webcamButton.onclick = async () => {
     });
   };
 
-  webcamVideo.srcObject = localStream;
+  localstreamclone = localStream.clone();
+  audiostream = localstreamclone.getAudioTracks();
+  audioTrack = audiostream[0];
+  localstreamclone.removeTrack(audioTrack);
+  webcamVideo.srcObject = localstreamclone;
   remoteVideo.srcObject = remoteStream;
 
   callButton.disabled = false;
