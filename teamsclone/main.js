@@ -32,6 +32,8 @@ const servers = {
 const pc = new RTCPeerConnection(servers);
 let localStream = null;
 let remoteStream = null;
+let audioOnly = null;
+let audioTrack = null;
 
 // HTML elements
 const webcamButton = document.getElementById('webcamButton');
@@ -47,7 +49,8 @@ const hangupButton = document.getElementById('hangupButton');
 webcamButton.onclick = async () => {
   localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
   remoteStream = new MediaStream();
-  audioOnly = localStream.getAudioTracks()[0];
+  audioOnly = localStream.getAudioTracks();
+  audioTrack = audioOnly[0];
 
   // Push tracks from local stream to peer connection
   localStream.getTracks().forEach((track) => {
